@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Über uns | Kovalenko Manufaktur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette: "Cyber-Industrial" */
+            --bg-dark: #050505;
+            --bg-panel: #0f0f11;
+            --text-main: #e0e0e0;
+            --text-muted: #888890;
+            --accent: #ccff00; /* Acid Lime */
+            --accent-dim: rgba(204, 255, 0, 0.1);
+            --border: #2a2a2a;
+            --grid-line: rgba(255, 255, 255, 0.03);
+            
+            /* Typography */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --container-padding: 5vw;
+            --spacer-lg: 120px;
+            --spacer-md: 80px;
+            --spacer-sm: 40px;
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 18px;
+            /* Background Grid Pattern */
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            letter-spacing: -0.5px;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        /* Active State Style */
+        .nav-links a.active {
+            color: var(--accent);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Button (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh; /* Slightly shorter for sub-page */
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.9;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-content h1 b {
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 50px;
+            border-left: 2px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 18px 40px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-main:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-block {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #a9b7c6;
+            box-shadow: 20px 20px 0px var(--border);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'system_status: active';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--bg-dark);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 5px 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .syntax-k { color: #cc7832; } /* Keyword */
+        .syntax-s { color: #6a8759; } /* String */
+        .syntax-f { color: #ffc66d; } /* Function */
+        .syntax-c { color: #808080; } /* Comment */
+
+        /* Infinite Marquee */
+        .marquee-container {
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            transform: rotate(-1deg) scale(1.05);
+            margin: var(--spacer-md) 0;
+            border-top: 1px solid var(--bg-dark);
+            border-bottom: 1px solid var(--bg-dark);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Services Section (Bento Grid Style) */
+        .section-header {
+            margin-bottom: var(--spacer-sm);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 350px;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .service-card .arrow {
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--accent);
+        }
+
+        .service-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* About / Philosophy Section */
+        .about-section {
+            padding: var(--spacer-lg) 0;
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Team Grid (Reusing Services Grid Logic) */
+        .team-lead {
+            grid-column: span 2;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: var(--spacer-md) 0 40px 0;
+            background: var(--bg-panel);
+            margin-top: var(--spacer-lg);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-brand address {
+            font-style: normal;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-col h5 {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-subtitle {
+                margin: 0 auto 50px auto;
+                border-left: none;
+                border-bottom: 2px solid var(--accent);
+                padding-bottom: 20px;
+                padding-left: 0;
+            }
+
+            .hero-visual {
+                display: none; /* Hide code block on tablets for cleaner look */
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-lead {
+                grid-column: span 1;
+            }
+
+            .about-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Simplification for this exercise - normally would be a hamburger menu */
+            }
+            .menu-toggle {
+                display: block;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="container nav-inner">
+            <div class="logo">Kovalenko <span>Manufaktur</span></div>
+            <nav class="nav-links">
+                <a href="index.html">Startseite</a>
+                <a href="ueber-uns.html" class="active">Über uns</a>
+                <a href="leistungen.html">Leistungen</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="impressum.html">Impressum</a>
+            </nav>
+            <div class="menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1>Digitale <br><b>Architekten.</b></h1>
+                        <p class="hero-subtitle">
+                            Wir sind keine klassische Agentur. Wir sind ein Kollektiv aus Entwicklern und Designern, die den Status Quo herausfordern. Präzision trifft auf pure Ästhetik.
+                        </p>
+                        <a href="#philosophie" class="btn-main">Unsere DNA</a>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="code-block">
+                            <span class="syntax-c">// Kovalenko Manufaktur Core Definition</span><br>
+                            <span class="syntax-k">const</span> <span class="syntax-f">AgencyProfile</span> = {<br>
+                            &nbsp;&nbsp;origin: <span class="syntax-s">'Berlin_Mitte'</span>,<br>
+                            &nbsp;&nbsp;established: <span class="syntax-k">2014</span>,<br>
+                            &nbsp;&nbsp;focus: [<span class="syntax-s">'High-Perf'</span>, <span class="syntax-s">'UX/UI'</span>],<br>
+                            &nbsp;&nbsp;methodology: <span class="syntax-s">'Agile_Extreme'</span>,<br>
+                            &nbsp;&nbsp;status: <span class="syntax-k">true</span><br>
+                            };<br><br>
+                            <span class="syntax-f">initSystem</span>(AgencyProfile);
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Divider -->
+        <div class="marquee-container">
+            <div class="marquee-content">
+                STRATEGY — DESIGN — DEVELOPMENT — DEPLOYMENT — BERLIN MADE — STRATEGY — DESIGN — DEVELOPMENT — DEPLOYMENT — BERLIN MADE —
+            </div>
+        </div>
+
+        <!-- Philosophy / History Section -->
+        <section class="about-section" id="philosophie">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Die Philosophie</h2>
+                    <span class="section-number">01</span>
+                </div>
+                
+                <div class="about-layout">
+                    <div class="about-text">
+                        <h2>Vom Code zur Kunstform.</h2>
+                        <p>
+                            Gegründet im Jahr 2014 in einem Hinterhof in Berlin-Mitte, begann die Kovalenko Manufaktur mit einer einfachen Prämisse: Das Web ist voll von Mittelmäßigkeit. Wir wollten das ändern.
+                        </p>
+                        <p>
+                            Wir glauben daran, dass eine Website mehr ist als nur eine digitale Visitenkarte. Sie ist eine lebende Infrastruktur. Unser Ansatz verbindet die Robustheit industrieller Softwareentwicklung mit der visuellen Finesse modernen Designs. Wir nutzen keine Templates. Wir schreiben keine unnötigen Zeilen Code. Alles hat einen Zweck.
+                        </p>
+                        <p class="accent-text mono">> SYSTEM_OPTIMIZATION: CONTINUOUS</p>
+                    </div>
+                    
+                    <div>
+                        <div class="code-block" style="margin-bottom: 30px; border-color: var(--accent);">
+                            <span class="syntax-c">/* Mission Statement */</span><br>
+                            .kovalenko-quality {<br>
+                            &nbsp;&nbsp;compromise: <span class="syntax-k">none</span> !important;<br>
+                            &nbsp;&nbsp;performance: <span class="syntax-k">100%</span>;<br>
+                            &nbsp;&nbsp;aesthetics: <span class="syntax-s">"Cyber-Industrial"</span>;<br>
+                            }
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-number">12+</span>
+                                <span class="stat-label">Jahre Erfahrung</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">140+</span>
+                                <span class="stat-label">Projekte Live</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Eigenentwicklung</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">BER</span>
+                                <span class="stat-label">Standort</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values / DNA Section (Using Services Grid Styling) -->
+        <section class="about-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Unsere Werte</h2>
+                    <span class="section-number">02</span>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div>
+                            <div class="service-icon mono">[01]</div>
+                            <h3>Radikale Präzision</h3>
+                            <p>Pixel-Perfect ist für uns kein Modewort, sondern die Mindestanforderung. Wir testen auf allen Geräten, in allen Browsern, unter allen Bedingungen.</p>
+                        </div>
+                        <div class="arrow">→</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div>
+                            <div class="service-icon mono">[02]</div>
+                            <h3>Transparenter Code</h3>
+                            <p>Wir verstecken uns nicht hinter Fachjargon. Unsere Kunden erhalten Einblick in den Prozess. Sauberer Code bedeutet nachhaltige Wartbarkeit.</p>
+                        </div>
+                        <div class="arrow">→</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div>
+                            <div class="service-icon mono">[03]</div>
+                            <h3>Performance First</h3>
+                            <p>Ästhetik darf nicht auf Kosten der Geschwindigkeit gehen. Wir optimieren jeden Asset, jedes Skript und jede Datenbankabfrage für maximale Effizienz.</p>
+                        </div>
+                        <div class="arrow">→</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section style="padding: 100px 0; text-align: center;">
+            <div class="container">
+                <h2 style="font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 40px; line-height: 1.1;">
+                    Bereit für das <span class="accent-text">Upgrade?</span>
+                </h2>
+                <a href="kontakt.html" class="btn-main">Projekt anfragen</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>Kovalenko Manufaktur</h4>
+                    <address>
+                        Friedrichstraße 43<br>
+                        10117 Berlin<br><br>
+                        <a href="mailto:info@kovalenko-manufaktur.de" style="color: var(--text-main);">info@kovalenko-manufaktur.de</a>
+                    </address>
+                </div>
+                <div class="footer-col">
+                    <h5>Sitemap</h5>
+                    <ul>
+                        <li><a href="index.html">Startseite</a></li>
+                        <li><a href="ueber-uns.html">Über uns</a></li>
+                        <li><a href="leistungen.html">Leistungen</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Rechtliches</h5>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Kovalenko Manufaktur. Alle Rechte vorbehalten.</span>
+                <span class="mono">MADE IN BERLIN</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

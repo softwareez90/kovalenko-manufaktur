@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum | Kovalenko Manufaktur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Color Palette: "Cyber-Industrial" */
+            --bg-dark: #050505;
+            --bg-panel: #0f0f11;
+            --text-main: #e0e0e0;
+            --text-muted: #888890;
+            --accent: #ccff00; /* Acid Lime */
+            --accent-dim: rgba(204, 255, 0, 0.1);
+            --border: #2a2a2a;
+            --grid-line: rgba(255, 255, 255, 0.03);
+            
+            /* Typography */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --container-padding: 5vw;
+            --spacer-lg: 120px;
+            --spacer-md: 80px;
+            --spacer-sm: 40px;
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 18px;
+            /* Background Grid Pattern */
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            letter-spacing: -0.5px;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Button (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding-top: 180px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .page-title b {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .breadcrumb {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Content Grid */
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .legal-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 40px;
+            position: relative;
+        }
+
+        .legal-card h2 {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .legal-card p, .legal-card li {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .legal-card strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .legal-card a {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .legal-card a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: var(--spacer-md) 0 40px 0;
+            background: var(--bg-panel);
+            margin-top: auto; /* Push footer to bottom */
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-brand address {
+            font-style: normal;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-col h5 {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .legal-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-header {
+                padding-top: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="logo">Kovalenko <span>Manufaktur</span></a>
+                
+                <nav class="nav-links">
+                    <a href="index.html">Startseite</a>
+                    <a href="ueber-uns.html">Über uns</a>
+                    <a href="leistungen.html">Leistungen</a>
+                    <a href="kontakt.html">Kontakt</a>
+                    <a href="impressum.html" class="active">Impressum</a>
+                </nav>
+
+                <div class="menu-toggle">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-header">
+        <div class="container">
+            <p class="breadcrumb">// LEGAL_NOTICE_SYSTEM</p>
+            <h1 class="page-title">Impressum</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="legal-grid">
+            
+            <!-- Company Info -->
+            <div class="legal-card">
+                <h2>Angaben gemäß § 5 TMG</h2>
+                <p>
+                    <strong>Kovalenko Manufaktur</strong><br>
+                    Friedrichstraße 43<br>
+                    10117 Berlin<br>
+                    Deutschland
+                </p>
+                <p>
+                    <strong>Vertreten durch:</strong><br>
+                    Ekaterina Kovalenko
+                </p>
+            </div>
+
+            <!-- Contact -->
+            <div class="legal-card">
+                <h2>Kontakt</h2>
+                <p>
+                    Wir sind für Sie erreichbar unter:
+                </p>
+                <p>
+                    <strong>E-Mail:</strong><br>
+                    <a href="mailto:info@kovalenko-manufaktur.de">info@kovalenko-manufaktur.de</a>
+                </p>
+                <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.7;">
+                    Für geschäftliche Anfragen nutzen Sie bitte bevorzugt unsere E-Mail-Adresse für eine zeitnahe Bearbeitung Ihres Anliegens.
+                </p>
+            </div>
+
+            <!-- Content Responsibility -->
+            <div class="legal-card">
+                <h2>Redaktionell Verantwortlich</h2>
+                <p>
+                    Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:
+                </p>
+                <p>
+                    Ekaterina Kovalenko<br>
+                    Friedrichstraße 43<br>
+                    10117 Berlin
+                </p>
+            </div>
+
+            <!-- Dispute Resolution -->
+            <div class="legal-card">
+                <h2>Streitschlichtung</h2>
+                <p>
+                    Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
+                    <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>.
+                </p>
+                <p>
+                    Unsere E-Mail-Adresse finden Sie oben im Impressum.
+                </p>
+                <p>
+                    Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                </p>
+            </div>
+
+            <!-- Disclaimers -->
+            <div class="legal-card full-width">
+                <h2>Haftung & Urheberrecht</h2>
+                <p><strong>Haftung für Inhalte</strong><br>
+                Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+                
+                <p><strong>Haftung für Links</strong><br>
+                Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+                
+                <p><strong>Urheberrecht</strong><br>
+                Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>Kovalenko Manufaktur</h4>
+                    <address>
+                        Friedrichstraße 43<br>
+                        10117 Berlin<br><br>
+                        <a href="mailto:info@kovalenko-manufaktur.de" style="color: var(--text-main);">info@kovalenko-manufaktur.de</a>
+                    </address>
+                </div>
+                <div class="footer-col">
+                    <h5>Sitemap</h5>
+                    <ul>
+                        <li><a href="index.html">Startseite</a></li>
+                        <li><a href="ueber-uns.html">Über uns</a></li>
+                        <li><a href="leistungen.html">Leistungen</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Rechtliches</h5>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Kovalenko Manufaktur. Alle Rechte vorbehalten.</span>
+                <span class="mono">MADE IN BERLIN</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

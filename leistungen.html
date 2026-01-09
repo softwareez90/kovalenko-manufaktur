@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leistungen | Kovalenko Manufaktur</title>
+    
+    <!-- Fonts importieren -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Design System CSS -->
+    <style>
+        :root {
+            /* Color Palette: "Cyber-Industrial" */
+            --bg-dark: #050505;
+            --bg-panel: #0f0f11;
+            --text-main: #e0e0e0;
+            --text-muted: #888890;
+            --accent: #ccff00; /* Acid Lime */
+            --accent-dim: rgba(204, 255, 0, 0.1);
+            --border: #2a2a2a;
+            --grid-line: rgba(255, 255, 255, 0.03);
+            
+            /* Typography */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --container-padding: 5vw;
+            --spacer-lg: 120px;
+            --spacer-md: 80px;
+            --spacer-sm: 40px;
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 18px;
+            /* Background Grid Pattern */
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            letter-spacing: -0.5px;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Button (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh; /* Etwas kürzer als Home */
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 0.9;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-content h1 b {
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 50px;
+            border-left: 2px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 18px 40px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-main:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-block {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #a9b7c6;
+            box-shadow: 20px 20px 0px var(--border);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'system_status: active';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--bg-dark);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 5px 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .syntax-k { color: #cc7832; } /* Keyword */
+        .syntax-s { color: #6a8759; } /* String */
+        .syntax-f { color: #ffc66d; } /* Function */
+        .syntax-c { color: #808080; } /* Comment */
+
+        /* Infinite Marquee */
+        .marquee-container {
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            transform: rotate(-1deg) scale(1.05);
+            margin: var(--spacer-md) 0;
+            border-top: 1px solid var(--bg-dark);
+            border-bottom: 1px solid var(--bg-dark);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Services Section (Bento Grid Style) */
+        .section-header {
+            margin-bottom: var(--spacer-sm);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 350px;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            transition: color 0.3s;
+            font-family: var(--font-mono);
+        }
+
+        .service-card:hover .service-icon {
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .service-card .arrow {
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        .service-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: var(--spacer-lg) 0;
+        }
+        
+        .process-step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 40px;
+        }
+        
+        .process-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.2rem;
+            min-width: 50px;
+        }
+        
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .step-content p {
+            color: var(--text-muted);
+            max-width: 800px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: var(--spacer-md) 0 40px 0;
+            background: var(--bg-panel);
+            margin-top: var(--spacer-lg);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-brand address {
+            font-style: normal;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-col h5 {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-subtitle {
+                margin: 0 auto 50px auto;
+                border-left: none;
+                border-bottom: 2px solid var(--accent);
+                padding-bottom: 20px;
+                padding-left: 0;
+            }
+
+            .hero-visual {
+                display: none; 
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .process-step {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="logo">Kovalenko <span>.</span></a>
+                
+                <nav class="nav-links">
+                    <a href="index.html">Startseite</a>
+                    <a href="ueber-uns.html">Über uns</a>
+                    <a href="leistungen.html" class="active">Leistungen</a>
+                    <a href="kontakt.html">Kontakt</a>
+                    <a href="impressum.html">Impressum</a>
+                </nav>
+
+                <div class="menu-toggle">
+                    ☰
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1>Präzision trifft <br><b>Performance.</b></h1>
+                        <p class="hero-subtitle">
+                            Wir entwickeln nicht einfach nur Websites. Wir schaffen digitale Ökosysteme, die skalieren. Maßgeschneidert, performant und technologisch führend.
+                        </p>
+                        <a href="#services" class="btn-main">Expertise entdecken</a>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="code-block">
+                            <span class="syntax-k">const</span> <span class="syntax-f">buildDigitalExcellence</span> = (<span class="syntax-s">client</span>) => {<br>
+                            &nbsp;&nbsp;<span class="syntax-k">return</span> {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;architecture: <span class="syntax-s">'scalable'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;performance: <span class="syntax-s">'optimized'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;design: <span class="syntax-s">'award-winning'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;status: <span class="syntax-f">deploy</span>()<br>
+                            &nbsp;&nbsp;};<br>
+                            };
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee -->
+        <div class="marquee-container">
+            <div class="marquee-content">
+                FRONTEND DEVELOPMENT • UI/UX DESIGN • E-COMMERCE • HEADLESS CMS • PERFORMANCE AUDITS • WEB APPS • FRONTEND DEVELOPMENT • UI/UX DESIGN •
+            </div>
+        </div>
+
+        <!-- Services Grid -->
+        <section class="container" id="services" style="padding-top: var(--spacer-md);">
+            <div class="section-header">
+                <h2 class="section-title">Unser Spektrum</h2>
+                <span class="section-number">01 / 06</span>
+            </div>
+
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">&lt; / &gt;</div>
+                        <h3>Frontend Development</h3>
+                        <p>Pixelgenaue Umsetzung komplexer Designs. Wir nutzen modernste Frameworks wie React, Vue.js und Astro für blitzschnelle Ladezeiten und flüssige Animationen.</p>
+                    </div>
+                    <div class="arrow">DETAILS_ANZEIGEN -></div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">[ ]</div>
+                        <h3>UI / UX Design</h3>
+                        <p>Interfaces, die nicht nur gut aussehen, sondern funktionieren. Nutzerzentrierte Designsysteme, Wireframing und High-Fidelity Prototyping in Figma.</p>
+                    </div>
+                    <div class="arrow">DETAILS_ANZEIGEN -></div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">{ $ }</div>
+                        <h3>E-Commerce Solutions</h3>
+                        <p>Maßgeschneiderte Shopsysteme auf Basis von Shopify Plus oder WooCommerce. Optimiert für Conversion-Rates und nahtlose Payment-Integrationen.</p>
+                    </div>
+                    <div class="arrow">DETAILS_ANZEIGEN -></div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">⚡</div>
+                        <h3>Performance & SEO</h3>
+                        <p>Core Web Vitals Optimierung. Wir analysieren und refaktorisieren bestehenden Code, um Google-Rankings durch technische Exzellenz zu verbessern.</p>
+                    </div>
+                    <div class="arrow">DETAILS_ANZEIGEN -></div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">API</div>
+                        <h3>Headless CMS</h3>
+                        <p>Entkopplung von Frontend und Backend für maximale Flexibilität. Integration von Contentful, Sanity oder Strapi für modernes Content-Management.</p>
+                    </div>
+                    <div class="arrow">DETAILS_ANZEIGEN -></div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">#_</div>
+                        <h3>Wartung & Skalierung</h3>
+                        <p>Langfristige Betreuung Ihrer digitalen Infrastruktur. Sicherheitsupdates, Feature-Erweiterungen und kontinuierliches Monitoring.</p>
+                    </div>
+                    <div class="arrow">DETAILS_ANZEIGEN -></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process / Methodology -->
+        <section class="container process-section">
+            <div class="section-header">
+                <h2 class="section-title">Der Prozess</h2>
+                <span class="section-number">WORKFLOW</span>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">01.</div>
+                <div class="step-content">
+                    <h3>Discovery & Strategie</h3>
+                    <p>Bevor wir eine Zeile Code schreiben, verstehen wir Ihr Geschäft. Wir definieren Ziele, Zielgruppen und technische Anforderungen in einem detaillierten Workshop.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">02.</div>
+                <div class="step-content">
+                    <h3>Design & Prototyping</h3>
+                    <p>Wir visualisieren die Lösung. Von Wireframes bis zum interaktiven Klick-Dummy. Hier entscheiden sich Look & Feel sowie die User Journey.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">03.</div>
+                <div class="step-content">
+                    <h3>Development (Agil)</h3>
+                    <p>Umsetzung in Sprints. Sauberer, semantischer Code. Regelmäßige Deployments auf Staging-Servern garantieren volle Transparenz während der Entwicklung.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">04.</div>
+                <div class="step-content">
+                    <h3>Launch & Growth</h3>
+                    <p>Qualitätssicherung, Browser-Testing und Go-Live. Nach dem Launch begleiten wir Sie weiter mit Analyse und Optimierung.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="container" style="text-align: center; margin-bottom: var(--spacer-lg);">
+            <div style="background: var(--bg-panel); padding: 80px 20px; border: 1px solid var(--border);">
+                <h2 style="font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 30px;">Bereit für das Upgrade?</h2>
+                <p style="color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Lassen Sie uns über Ihr nächstes Projekt sprechen. Wir transformieren Ihre Vision in digitalen Code.
+                </p>
+                <a href="kontakt.html" class="btn-main">Projekt anfragen</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>Kovalenko Manufaktur</h4>
+                    <address>
+                        Friedrichstraße 43<br>
+                        10117 Berlin<br><br>
+                        <a href="mailto:info@kovalenko-manufaktur.de" style="color: var(--text-main);">info@kovalenko-manufaktur.de</a>
+                    </address>
+                </div>
+                <div class="footer-col">
+                    <h5>Sitemap</h5>
+                    <ul>
+                        <li><a href="index.html">Startseite</a></li>
+                        <li><a href="ueber-uns.html">Über uns</a></li>
+                        <li><a href="leistungen.html">Leistungen</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Rechtliches</h5>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Kovalenko Manufaktur. Alle Rechte vorbehalten.</span>
+                <span class="mono">MADE IN BERLIN</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
